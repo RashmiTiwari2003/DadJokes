@@ -50,8 +50,8 @@ const App = () => {
           <img className='w-full h-full' src={Title} alt="Title" />
         </div>
 
-        <div className='bg-[#f7db4e] border shadow-md w-80 h-80 sm:w-[600px] sm:h-80 my-6 rounded-xl flex justify-center items-center'>
-          <div ref={jokeCard} className='flex justify-center font-mono font-semibold text-xl px-6 text-white'>
+        <div className='bg-[#f7db4e] border shadow-md w-80 h-96 sm:w-[600px] sm:h-80 my-6 rounded-xl flex justify-center items-center'>
+          <div ref={jokeCard} className='flex justify-center font-bold sm:font-semibold text-2xl px-6 text-white'>
 
           </div>
         </div>
