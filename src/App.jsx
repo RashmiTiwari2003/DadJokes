@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Title from './icon/title.png'
+import ReactDOMServer from 'react-dom/server';
+import { createRoot } from 'react-dom/client';
+import Progress from './progress';
 
 const App = () => {
 
   const [myJoke, setMyJoke] = useState("")
+  const [open,setOpen] = useState(false)
 
   const jokeCard = useRef(null)
 
@@ -18,11 +22,14 @@ const App = () => {
         }
       };
 
+      setOpen(true)
+
       let res = await fetch(url, options)
       let data = await res.json()
 
       const { joke } = data;
 
+      setOpen(false)
       setMyJoke(joke)
       console.log(joke)
     }
@@ -32,7 +39,7 @@ const App = () => {
   }
 
   const addJoke = () => {
-    jokeCard.current.innerHTML = `<h1>${myJoke}</h1>`
+    jokeCard.current.innerHTML = `<h1>${myJoke}</h1>` 
   }
 
   useEffect(() => {
@@ -42,6 +49,15 @@ const App = () => {
   useEffect(() => {
     addJoke()
   },[myJoke])
+
+  useEffect(() => {
+    if (open === true){
+      const htmlString = ReactDOMServer.renderToString(<Progress />);
+      jokeCard.current.innerHTML=htmlString;
+      const root = createRoot(jokeCard.current );
+      root.render(<Progress />);
+    }
+  },[open])
 
   return (
     <div className='bg-[#EEEEEE] h-screen'>
